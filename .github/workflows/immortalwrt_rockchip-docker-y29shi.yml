@@ -14,7 +14,7 @@ on:
   # workflow_dispatch:
 
 env:
-  REPO_URL: https://github.com/sy19890515/immortalwrt
+  REPO_URL: https://github.com/DHDAXCW/immortalwrt
   REPO_BRANCH: openwrt-24.10
   CONFIG_FILE: immortalwrt/rockchip/defconfig
   DIY_P1_SH: immortalwrt/diy-part1.sh
@@ -66,7 +66,7 @@ jobs:
             g++-multilib git gnutls-dev gperf haveged help2man intltool lib32gcc-s1 libc6-dev-i386 libelf-dev \
             libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses-dev libncurses5-dev \
             libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool libyaml-dev libz-dev lld llvm \
-            lrzsz aria2 lib32gcc-s1 mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf re2c python3 \
+            lrzsz aria2 lib32gcc-s1 mkisofs msmtp ninja-build p7zip p7zip-full patch pkgconf re2c python3 \
             python3-pip python3-ply python3-docutils python3-pyelftools python3-socks python3-unidecode qemu-utils\
             rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev\
             libfuse-dev libxslt-dev libedit-dev libsqlite3-dev libsodium-dev libgps-dev libev-dev golang zstd
@@ -130,7 +130,7 @@ jobs:
       run: |
         cd openwrt
         echo -e "$(nproc) thread compile"
-        make -j$(nproc) || make -j1 || make -j1 V=s
+        make -j$(nproc) || make -j1 || make -j1 V=sc
         # make -j1 V=sc
         echo "date1=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
         echo "date2=$(date "+%Y年%m月%d日")" >> $GITHUB_ENV
