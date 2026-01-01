@@ -61,15 +61,9 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         ( sudo -E apt-get -qq update
-        sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
-            bzip2 ccache clang cmake cpio curl device-tree-compiler ecj fastjar flex gawk gettext gcc-multilib \
-            g++-multilib git gnutls-dev gperf haveged help2man intltool lib32gcc-s1 libc6-dev-i386 libelf-dev \
-            libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses-dev libncurses5-dev \
-            libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool libyaml-dev libz-dev lld llvm \
-            lrzsz aria2 lib32gcc-s1 mkisofs msmtp ninja-build p7zip p7zip-full patch pkgconf re2c python3 \
-            python3-pip python3-ply python3-docutils python3-pyelftools python3-socks python3-unidecode qemu-utils\
-            rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev\
-            libfuse-dev libxslt-dev libedit-dev libsqlite3-dev libsodium-dev libgps-dev libev-dev golang zstd
+        sudo -E apt-get -qq install build-essential clang flex g++ gawk gcc-multilib gettext \
+        git libncurses5-dev libssl-dev python3-distutils rsync unzip zlib1g-dev swig libpython3-dev aria2 jq subversion qemu-utils ccache rename libelf-dev
+        sudo pip3 install pyelftools
         sudo -E apt-get -qq purge azure-cli ghc* zulu* hhvm llvm* firefox powershell openjdk* dotnet* google* mysql* php* android* rename speedtest-cli
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq autoremove --purge
@@ -117,7 +111,6 @@ jobs:
         CONFIG_PACKAGE_docker-compose=y
         CONFIG_PACKAGE_dockerd=y
         CONFIG_PACKAGE_luci-app-dockerman=y
-        CONFIG_PACKAGE_luci-app-netspeedtest=y
         CONFIG_PACKAGE_luci-i18n-dockerman-zh-cn=y
         CONFIG_PACKAGE_luci-lib-docker=y
         ' >> .config
@@ -147,20 +140,12 @@ jobs:
         done
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
-        find ../../../packages/ -type f -name '*.ipk' | zip packages.zip -@
-
+        
     - name: Upload the firmware to github
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
         name: ${{ env.date1 }}_${{ env.OPENWRT_NAME }}_${{ env.OPENWRT_NAME1 }}
-        path: ${{ env.FIRMWARE }}
-
-    - name: Upload the packages to github
-      uses: actions/upload-artifact@main
-      if: steps.organize.outputs.status == 'success' && !cancelled()
-      with:
-        name: packages.zip
         path: ${{ env.FIRMWARE }}
 
     - name: Generate release tags
