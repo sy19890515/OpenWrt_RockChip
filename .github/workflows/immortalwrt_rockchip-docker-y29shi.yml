@@ -16,6 +16,7 @@ on:
 env:
   REPO_URL: https://github.com/DHDAXCW/immortalwrt
   REPO_BRANCH: openwrt-24.10
+  commit: aec57dfa0fee9c05d9ba617a76177e22034b409f
   CONFIG_FILE: immortalwrt/rockchip/defconfig
   DIY_P1_SH: immortalwrt/diy-part1.sh
   DIY_P2_SH: immortalwrt/diy-part2.sh
@@ -79,7 +80,9 @@ jobs:
 
     - name: Download firmware source code
       run: |
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        git clone $REPO_URL -b $REPO_BRANCH openwrt
+        cd openwrt
+        git reset --hard $commit
 
     - name: Update & install feeds
       working-directory: ./openwrt
@@ -136,7 +139,7 @@ jobs:
         cd openwrt/bin/targets/rockchip/armv8
         rm -rf packages *.buildinfo *.manifest *.json
         for file in immortalwrt-*-*.img.gz; do
-            mv "$file" "docker-$file"
+            mv "$file" "docker-$commit-$file"
         done
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
