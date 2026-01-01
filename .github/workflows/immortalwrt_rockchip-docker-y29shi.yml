@@ -6,7 +6,7 @@ on:
 
   push:
     branches:
-      - y29shi-test
+      - test-20250712
   repository_dispatch:
   workflow_dispatch:
   # schedule:
