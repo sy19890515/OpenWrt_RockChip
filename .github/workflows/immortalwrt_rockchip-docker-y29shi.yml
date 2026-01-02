@@ -71,6 +71,7 @@ jobs:
             python3-pip python3-ply python3-docutils python3-pyelftools python3-socks python3-unidecode qemu-utils\
             rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev\
             libfuse-dev libxslt-dev libedit-dev libsqlite3-dev libsodium-dev libgps-dev libev-dev golang zstd
+        sudo pip3 install pyelftools
         sudo -E apt-get -qq purge azure-cli ghc* zulu* hhvm llvm* firefox powershell openjdk* dotnet* google* mysql* php* android* rename speedtest-cli
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq autoremove --purge
