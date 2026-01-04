@@ -16,7 +16,7 @@ on:
 env:
   REPO_URL: https://github.com/DHDAXCW/immortalwrt
   REPO_BRANCH: openwrt-24.10
-  commit: 780e0183675a1a2e333ed50a2cfe1a8bdde60d0e
+  commit: 20b2c0e6b62634744c3101eccbbf569614ed8657
   CONFIG_FILE: immortalwrt/rockchip/defconfig
   DIY_P1_SH: immortalwrt/diy-part1.sh
   DIY_P2_SH: immortalwrt/diy-part2.sh
