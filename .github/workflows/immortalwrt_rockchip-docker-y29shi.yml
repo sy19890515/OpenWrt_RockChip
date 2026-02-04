@@ -94,7 +94,7 @@ jobs:
     - name: Update & install feeds
       working-directory: ./openwrt
       run: |
-        sed -i '1i src-git passwall_packages https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git;main\nsrc-git passwall_luci https://github.com/Openwrt-Passwall/openwrt-passwall.git;main\n' openwrt/feeds.conf.default
+        sed -i '1i src-git passwall_packages https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git;main\nsrc-git passwall_luci https://github.com/Openwrt-Passwall/openwrt-passwall.git;main\n' feeds.conf.default
 
         ./scripts/feeds update -a
         ./scripts/feeds install -a
