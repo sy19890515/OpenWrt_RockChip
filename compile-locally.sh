@@ -4,20 +4,12 @@ cd /home/y29shi/OpenWrt_RockChip
 chmod +x immortalwrt/*.sh
 /home/y29shi/OpenWrt_RockChip/immortalwrt/system-Information.sh
 
-# git clone --depth 1 https://github.com/immortalwrt/immortalwrt -b openwrt-24.10 openwrt
 git clone --depth 1 https://github.com/immortalwrt/immortalwrt -b openwrt-24.10 openwrt
 
 cd openwrt
-# sed -i '1i src-git passwall_packages https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git;main\n' feeds.conf.default
-# sed -i '1i src-git passwall_luci https://github.com/Openwrt-Passwall/openwrt-passwall.git;main\n' feeds.conf.default
-# sed -i '1i src-git passwall2_luci https://github.com/Openwrt-Passwall/openwrt-passwall2.git;main\n' feeds.conf.default
 ./scripts/feeds update -a
-
-# rm -rf feeds/packages/lang/golang
-# git clone https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 # Fix wget APK packaging error (remove invalid @wget-any virtual package syntax)
-sed -i 's/PROVIDES:=wget @wget-any/PROVIDES:=wget/' feeds/packages/net/wget/Makefile
-
+# sed -i 's/PROVIDES:=wget @wget-any/PROVIDES:=wget/' feeds/packages/net/wget/Makefile
 ./scripts/feeds install -a
 
 
