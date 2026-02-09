@@ -51,4 +51,4 @@ rm ../build.log
 make -j$(nproc) 2>&1 | tee ../build.log || make -j1 2>&1 | tee -a ../build.log || make -j1 V=sc 2>&1 | tee -a ../build.log
 
 cd bin
-find packages/ -type f -name '*.*pk' | zip targets/x86/64/packages.zip -@
+find packages/ -type f -name '*.*pk' | zip targets/rockchip/armv8/packages.zip -@
