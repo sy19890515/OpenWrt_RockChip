@@ -6,7 +6,7 @@ on:
 
   push:
     branches:
-      - y29shi-test
+      - 25.12
   repository_dispatch:
   workflow_dispatch:
   # schedule:
@@ -14,8 +14,8 @@ on:
   # workflow_dispatch:
 
 env:
-  REPO_URL: https://github.com/DHDAXCW/immortalwrt
-  REPO_BRANCH: openwrt-24.10
+  REPO_URL: https://github.com/immortalwrt/immortalwrt
+  REPO_BRANCH: openwrt-25.12
   commit: 06337b564965eb6a0c0651ba259c2a2a2f01a699
   CONFIG_FILE: immortalwrt/rockchip/defconfig
   DIY_P1_SH: immortalwrt/diy-part1.sh
@@ -62,16 +62,16 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo -E apt-get -qq update
-        sudo -E apt-get -qq install ack antlr3 aria2 asciidoc autoconf automake autopoint binutils bison build-essential bzip2\
-                                    ccache clang cmake cpio curl device-tree-compiler ecj fastjar flex g++ g++-multilib gawk\
-                                    gcc-multilib gettext git gnutls-dev golang gperf haveged help2man intltool jq lib32gcc-s1\
-                                    lib32gcc-s1 libc6-dev-i386 libedit-dev libelf-dev libev-dev libfuse-dev libglib2.0-dev\
-                                    libgmp3-dev libgps-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncurses-dev\
+        sudo -E apt-get -qq install ack antlr3 aria2 asciidoc autoconf automake autopoint binutils bison build-essential xxd\
+                                    bzip2 ccache clang cmake cpio curl device-tree-compiler ecj fastjar flex g++-multilib\
+                                    g++ gawk gcc-multilib gettext git gnutls-dev golang gperf haveged help2man intltool jq\
+                                    lib32gcc-s1 lib32gcc-s1 libc6-dev-i386 libedit-dev libelf-dev libev-dev libglib2.0-dev\
+                                    libfuse-dev libgmp3-dev libgps-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev\
                                     libncursesw5-dev libpython3-dev libreadline-dev libsodium-dev libsqlite3-dev libssl-dev\
                                     libtool libxslt-dev libyaml-dev libz-dev lld llvm lrzsz mkisofs msmtp ninja-build p7zip\
-                                    p7zip-full patch pkgconf python3 python3-docutils python3-pip python3-ply\
+                                    p7zip-full patch pkgconf python3 python3-docutils python3-pip python3-ply libncurses-dev\
                                     python3-pyelftools python3-socks python3-unidecode qemu-utils re2c rename rsync scons zstd\
-                                    squashfs-tools subversion swig texinfo uglifyjs unzip upx-ucl vim wget xmlto xxd zlib1g-dev
+                                    squashfs-tools subversion swig texinfo uglifyjs unzip upx-ucl vim wget xmlto zlib1g-dev
         sudo pip3 install pyelftools
         sudo -E apt-get -qq purge azure-cli ghc* zulu* firefox powershell openjdk* dotnet* google* mysql* php* android* rename speedtest-cli
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
@@ -101,6 +101,8 @@ jobs:
         # sed -i '1i src-git passwall2_luci https://github.com/Openwrt-Passwall/openwrt-passwall2.git;main\n' feeds.conf.default
 
         ./scripts/feeds update -a
+        # Fix wget APK packaging error (remove invalid @wget-any virtual package syntax)
+        sed -i 's/PROVIDES:=wget @wget-any/PROVIDES:=wget/' feeds/packages/net/wget/Makefile
         ./scripts/feeds install -a
 
     - name: Load feeds.conf.default
@@ -157,7 +159,7 @@ jobs:
         done
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
-        find ../../../packages/ -type f -name '*.ipk' | zip packages.zip -@
+        find ../../../packages/ -type f -name '*.*pk' | zip packages.zip -@
 
     - name: Upload the firmware to github
       uses: actions/upload-artifact@main
