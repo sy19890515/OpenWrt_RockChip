@@ -1,4 +1,3 @@
 .idea
 *.log
-compile-locally.sh
 *.iml
