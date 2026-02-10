@@ -101,8 +101,6 @@ jobs:
         # sed -i '1i src-git passwall2_luci https://github.com/Openwrt-Passwall/openwrt-passwall2.git;main\n' feeds.conf.default
 
         ./scripts/feeds update -a
-        # Fix wget APK packaging error (remove invalid @wget-any virtual package syntax)
-        sed -i 's/PROVIDES:=wget @wget-any/PROVIDES:=wget/' feeds/packages/net/wget/Makefile
         ./scripts/feeds install -a
 
     - name: Load feeds.conf.default
