@@ -153,11 +153,11 @@ jobs:
         cd openwrt/bin/targets/rockchip/armv8
         rm -rf packages *.buildinfo *.manifest *.json
         for file in immortalwrt-*-*.img.gz; do
-            mv "$file" "docker-$commit-$file"
+            mv "$file" "docker-$REPO_BRANCH-$file"
         done
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
-        find ../../../packages/ -type f -name '*.ipk' | zip packages.zip -@
+        find ../../../packages/ -type f -name '*.*pk' | zip $REPO_BRANCH-packages.zip -@
 
     - name: Upload the firmware to github
       uses: actions/upload-artifact@main
