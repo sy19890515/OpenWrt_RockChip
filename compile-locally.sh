@@ -4,8 +4,7 @@ cd /home/y29shi/OpenWrt_RockChip
 chmod +x immortalwrt/*.sh
 /home/y29shi/OpenWrt_RockChip/immortalwrt/system-Information.sh
 
-# git clone --depth 1 https://github.com/immortalwrt/immortalwrt -b openwrt-24.10 openwrt
-git clone --depth 1 https://github.com/immortalwrt/immortalwrt -b master openwrt
+git clone --depth 1 https://github.com/immortalwrt/immortalwrt -b openwrt-25.12 openwrt
 
 cd openwrt
 # sed -i '1i src-git passwall_packages https://github.com/Openwrt-Passwall/openwrt-passwall-packages.git;main\n' feeds.conf.default
