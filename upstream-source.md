@@ -28,7 +28,8 @@
 
 - Lienol's OpenWrt Packages Feeds:
   
-  https://github.com/xiaorouji/openwrt-package
+  <!-- https://github.com/xiaorouji/openwrt-package -->
+  https://github.com/Openwrt-Passwall/openwrt-passwall
 
 ## upstream plugin source
 
